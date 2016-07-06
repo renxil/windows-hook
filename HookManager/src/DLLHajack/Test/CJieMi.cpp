@@ -1,0 +1,577 @@
+#include "stdafx.h"
+#include "CJieMi.h"
+
+
+
+//来源InitRecvPak  006DFDC0
+//0001:002dedc0       q8mKKigGZlgGtuAIkRtJt1mWQnjOoH4AJeu+SFvReP/Uwlmu8+SPfhocYeMnyIVj 006dfdc0 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) InitRecvPak_ASM(IN PBYTE pRecvBuf,IN DWORD dwTotalBits)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			MOV EDX,DWORD PTR SS:[EBP+0xC]
+			PUSH ESI
+			MOV ESI,DWORD PTR SS:[EBP+0x8]
+			MOV DWORD PTR DS:[ECX],ESI
+			LEA EAX,DWORD PTR DS:[EDX+0x1F]
+			MOV DWORD PTR DS:[ECX+0x4],EDX
+			SHR EAX,0x3
+			AND EAX,0x1FFFFFFC
+			ADD EAX,ESI
+			MOV DWORD PTR DS:[ECX+0x8],EAX
+			TEST EDX,EDX
+			JNZ L018
+			MOV DWORD PTR DS:[ECX+0x14],EDX
+			POP ESI
+			POP EBP
+			RETN 0x8
+L018:
+			LEA EAX,DWORD PTR DS:[ESI+0x4]
+			MOV DWORD PTR DS:[ECX+0x14],0x0
+			MOV DWORD PTR DS:[ECX+0x10],EAX
+			MOV EAX,DWORD PTR DS:[ESI]
+			BSWAP EAX
+			MOV DWORD PTR DS:[ECX+0xC],EAX
+			MOV BYTE PTR DS:[ECX+0x18],0x0
+			POP ESI
+			POP EBP
+			RETN 0x8
+
+	}
+}
+
+//来源 setoffset_recv 006E2100
+//0001:002e1100       vomzILpoKkAtVEAclHTrF0PiSFomqTlFmQXHBbCuoGI= 006e2100 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) SetPopOffset_ASM(IN DWORD dwOffset)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			PUSH ESI
+			MOV ESI,ECX
+			MOV ECX,DWORD PTR SS:[EBP+0x8]
+			MOV EAX,DWORD PTR DS:[ESI+0x4]
+			CMP ECX,EAX
+			JB L014
+			MOV DWORD PTR DS:[ESI+0x14],EAX
+			SETA AL
+			OR BYTE PTR DS:[ESI+0x18],AL
+			POP ESI
+			POP EBP
+			RETN 0x4
+L014:
+			MOV EAX,DWORD PTR DS:[ESI]
+			MOV EDX,ECX
+			SHR EDX,0x5
+			MOV DWORD PTR DS:[ESI+0x14],ECX
+			AND ECX,0x1F
+			LEA EDX,DWORD PTR DS:[EAX+EDX*4]
+			LEA EAX,DWORD PTR DS:[EDX+0x4]
+			MOV DWORD PTR DS:[ESI+0x10],EAX
+			MOV EAX,DWORD PTR DS:[EDX]
+			BSWAP EAX
+			SHL EAX,CL
+			MOV DWORD PTR DS:[ESI+0xC],EAX
+			MOV BYTE PTR DS:[ESI+0x18],0x0
+			POP ESI
+			POP EBP
+			RETN 0x4
+
+	}
+}
+//popvalue  006E0920
+//0001:002df920       PABITZYlaU7EZ1ZcvlUs7J9PskY9DjndNVIYkcewj2o= 006e0920 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+DWORD _declspec(naked) PopValue_ASM(IN DWORD dwBits)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			SUB ESP,0xC
+			PUSH EBX
+			PUSH ESI
+			MOV ESI,DWORD PTR SS:[EBP+0x8]
+			MOV EDX,0x20
+			PUSH EDI
+			MOV EDI,ECX
+			MOV ECX,EDX
+			MOV EAX,DWORD PTR DS:[EDI+0x14]
+			MOV EBX,EAX
+			AND EBX,0x1F
+			ADD EAX,ESI
+			SUB ECX,EBX
+			MOV DWORD PTR SS:[EBP-0x4],EBX
+			MOV DWORD PTR DS:[EDI+0x14],EAX
+			CMP EAX,DWORD PTR DS:[EDI+0x4]
+			JBE L027
+			MOV BYTE PTR DS:[EDI+0x18],0x1
+			XOR EAX,EAX
+			POP EDI
+			POP ESI
+			POP EBX
+			MOV ESP,EBP
+			POP EBP
+			RETN 0x4
+L027:
+			MOV EAX,DWORD PTR DS:[EDI+0xC]
+			CMP ESI,ECX
+			JNB L036
+			SUB EDX,ESI
+			MOV EBX,EAX
+			MOV ECX,EDX
+			SHR EBX,CL
+			MOV ECX,ESI
+			JMP L069
+L036:
+			MOV EBX,ESI
+			MOV DWORD PTR SS:[EBP-0xC],EAX
+			MOV ESI,DWORD PTR DS:[EDI+0x10]
+			SUB EBX,ECX
+			MOV ECX,DWORD PTR SS:[EBP-0x4]
+			MOV DWORD PTR SS:[EBP-0x8],EBX
+			MOV EBX,EAX
+			SHR EBX,CL
+			MOV ECX,DWORD PTR SS:[EBP-0x8]
+			SHL EBX,CL
+			CMP ESI,DWORD PTR DS:[EDI+0x8]
+			MOV DWORD PTR SS:[EBP-0x4],ESI
+			MOV ESI,DWORD PTR SS:[EBP+0x8]
+			JNB L057
+			MOV EAX,DWORD PTR SS:[EBP-0x4]
+			ADD EAX,0x4
+			MOV DWORD PTR DS:[EDI+0x10],EAX
+			MOV EAX,DWORD PTR SS:[EBP-0x4]
+			MOV EAX,DWORD PTR DS:[EAX]
+			BSWAP EAX
+			MOV DWORD PTR SS:[EBP-0xC],EAX
+L057:
+			SUB EDX,ECX
+			MOV DWORD PTR SS:[EBP+0x8],EDX
+			MOV EDX,EAX
+			MOV ECX,DWORD PTR SS:[EBP+0x8]
+			MOV EAX,0x1
+			SHR EDX,CL
+			MOV ECX,DWORD PTR SS:[EBP-0x8]
+			SHL EAX,CL
+			DEC EAX
+			AND EDX,EAX
+			MOV EAX,DWORD PTR SS:[EBP-0xC]
+			OR EBX,EDX
+L069:
+			NEG ESI
+			SHL EAX,CL
+			SAR ESI,0x1F
+			AND ESI,EBX
+			MOV DWORD PTR DS:[EDI+0xC],EAX
+			POP EDI
+			MOV EAX,ESI
+			POP ESI
+			POP EBX
+			MOV ESP,EBP
+			POP EBP
+			RETN 0x4
+
+	}
+}
+//initsendpak  006DFE10
+//0001:002dee10       kzqwY8HENQmnPps8PQHbf4pvf1zVARgSgiBGx36aSe0m3uCvEnveDBwQWMnlLYtI 006dfe10 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) InitSendPak_ASM(IN PBYTE pBuf,IN DWORD dwTotalBytes)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			MOV EAX,DWORD PTR SS:[EBP+0xC]
+			PUSH ESI
+			MOV ESI,ECX
+			MOV ECX,DWORD PTR SS:[EBP+0x8]
+			LEA EDX,DWORD PTR DS:[ECX+EAX]
+			MOV DWORD PTR DS:[ESI],ECX
+			SHL EAX,0x3
+			MOV DWORD PTR DS:[ESI+0x4],EAX
+			MOV DWORD PTR DS:[ESI+0xC],EDX
+			MOV DWORD PTR DS:[ESI+0x14],ECX
+			MOV EAX,DWORD PTR DS:[ECX]
+			MOV WORD PTR DS:[ESI+0x18],0x0
+			MOV DWORD PTR DS:[ESI+0x8],0x0
+			BSWAP EAX
+			MOV DWORD PTR DS:[ESI+0x10],EAX
+			CMP ECX,EDX
+			JNB L021
+			BSWAP EAX
+			MOV DWORD PTR DS:[ECX],EAX
+L021:
+			MOV ECX,DWORD PTR DS:[ESI+0x8]
+			MOV EAX,DWORD PTR DS:[ESI]
+			SHR ECX,0x5
+			LEA EAX,DWORD PTR DS:[EAX+ECX*4]
+			MOV DWORD PTR DS:[ESI+0x14],EAX
+			CMP EAX,DWORD PTR DS:[ESI+0xC]
+			JNB L031
+			MOV EAX,DWORD PTR DS:[EAX]
+			BSWAP EAX
+			MOV DWORD PTR DS:[ESI+0x10],EAX
+L031:
+			POP ESI
+			POP EBP
+			RETN 0x8
+
+	}
+}
+//pushint_bot  006E0310
+//0001:002df310       O+skQc8WO/QjERPI22cB1PmqdLqqVqKMNHfPp5Or1bnluuhqylkxE7IqJOT25uWA 006e0310 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) PushValueBot_ASM(IN DWORD dwLastOffset,IN DWORD dwValue,IN DWORD dwBits)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			PUSH ECX
+			MOV EAX,DWORD PTR SS:[EBP+0x8]
+			PUSH EBX
+			MOV EBX,ECX
+			AND EAX,0x1F
+			MOV ECX,0x20
+			MOV DWORD PTR SS:[EBP-0x4],EBX
+			SUB ECX,EAX
+			MOV EAX,DWORD PTR SS:[EBP+0x10]
+			PUSH ESI
+			MOV ESI,EAX
+			SUB ESI,ECX
+			JNS L034
+			LEA ECX,DWORD PTR DS:[EAX-0x1]
+			NEG ESI
+			MOV EAX,0x1
+			SHL EAX,CL
+			MOV ECX,ESI
+			POP ESI
+			LEA EDX,DWORD PTR DS:[EAX*2-0x1]
+			MOV EAX,DWORD PTR SS:[EBP+0xC]
+			SHL EDX,CL
+			SHL EAX,CL
+			AND EAX,EDX
+			NOT EDX
+			AND EDX,DWORD PTR DS:[EBX+0x10]
+			OR EAX,EDX
+			MOV DWORD PTR DS:[EBX+0x10],EAX
+			POP EBX
+			MOV ESP,EBP
+			POP EBP
+			RETN 0xC
+L034:
+			MOV EBX,DWORD PTR SS:[EBP+0xC]
+			DEC ECX
+			MOV EDX,0x1
+			PUSH EDI
+			MOV EAX,EDX
+			MOV EDI,EBX
+			SHL EAX,CL
+			MOV ECX,ESI
+			SHR EDI,CL
+			MOV ECX,DWORD PTR SS:[EBP-0x4]
+			LEA EAX,DWORD PTR DS:[EAX*2-0x1]
+			AND EDI,EAX
+			NOT EAX
+			AND EAX,DWORD PTR DS:[ECX+0x10]
+			OR EDI,EAX
+			MOV EAX,DWORD PTR SS:[EBP-0x4]
+			MOV ECX,EDI
+			BSWAP ECX
+			MOV EAX,DWORD PTR DS:[EAX+0x14]
+			MOV DWORD PTR DS:[EAX],ECX
+			MOV EAX,DWORD PTR SS:[EBP-0x4]
+			ADD DWORD PTR DS:[EAX+0x14],0x4
+			MOV ECX,DWORD PTR DS:[EAX+0x14]
+			CMP ECX,DWORD PTR DS:[EAX+0xC]
+			JNB L061
+			MOV EDI,DWORD PTR DS:[ECX]
+			BSWAP EDI
+L061:
+			MOV ECX,0x20
+			SUB ECX,ESI
+			MOV DWORD PTR SS:[EBP+0xC],ECX
+			MOV ECX,ESI
+			SHL EDX,CL
+			MOV ECX,DWORD PTR SS:[EBP+0xC]
+			DEC EDX
+			SHL EDX,CL
+			SHL EBX,CL
+			AND EBX,EDX
+			NOT EDX
+			AND EDX,EDI
+			POP EDI
+			OR EBX,EDX
+			POP ESI
+			MOV DWORD PTR DS:[EAX+0x10],EBX
+			POP EBX
+			MOV ESP,EBP
+			POP EBP
+			RETN 0xC
+	}
+}
+//pushJiamiValue  006E28E0
+// 0001:002e18e0       kerTfADMSyGMr2DaDkwMXYvKoGwI34Bf8x56Us3Tlm62lcTFOmbl+nTtlIaUHRVX 006e28e0 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) PushValue_ASM(IN DWORD dwValue,IN DWORD dwBits)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			PUSH ESI
+			PUSH EDI
+			MOV EDI,DWORD PTR SS:[EBP+0xC]
+			MOV ESI,ECX
+			TEST EDI,EDI
+			JE L024
+			PUSH EBX
+			MOV EBX,DWORD PTR DS:[ESI+0x8]
+			MOV BYTE PTR DS:[ESI+0x19],0x0
+			LEA EAX,DWORD PTR DS:[EBX+EDI]
+			MOV DWORD PTR DS:[ESI+0x8],EAX
+			CMP EAX,DWORD PTR DS:[ESI+0x4]
+			JBE L018
+			//CALL <NFSOL.resize>
+			int 3
+			TEST AL,AL
+			JE L023
+L018:
+			PUSH EDI
+			PUSH DWORD PTR SS:[EBP+0x8]
+			MOV ECX,ESI
+			PUSH EBX
+			CALL PushValueBot_ASM
+L023:
+			POP EBX
+L024:
+			POP EDI
+			POP ESI
+			POP EBP
+			RETN 0x8
+
+	}
+}
+//endBuf 006DEE10
+//0001:002dde10       LnrhzmdR6JHAnLRq9pAlciCD+5e4h2p1nYbrgsskGRY= 006dee10 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) EndBuf_ASM()
+{
+	_asm
+	{
+			MOV EDX,DWORD PTR DS:[ECX+0x14]
+			MOV BYTE PTR DS:[ECX+0x19],0x1
+			CMP EDX,DWORD PTR DS:[ECX+0xC]
+			JNB L007
+			MOV EAX,DWORD PTR DS:[ECX+0x10]
+			BSWAP EAX
+			MOV DWORD PTR DS:[EDX],EAX
+L007:
+			RETN
+
+	}
+}
+
+//setsendoffset  006E2150
+//0001:002e1150       JjgIAsuNy1KNGeMTfX+xk68KjS9na8i54vnCUu8VX3c= 006e2150 f   ICU2aHlNHbH2G97bhc+bE1o2MVeCj4RBgCeaaFA5aRNPmiqBLH+FcOxsUy3mArvl
+void _declspec(naked) SetSendOffset_ASM(IN DWORD dwBitsOffset)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			MOV EDX,DWORD PTR SS:[EBP+0x8]
+			PUSH ESI
+			MOV ESI,ECX
+			CMP EDX,DWORD PTR DS:[ESI+0x4]
+			MOV ECX,DWORD PTR DS:[ESI+0x14]
+			SETA AL
+			MOV DWORD PTR DS:[ESI+0x8],EDX
+			MOV BYTE PTR DS:[ESI+0x18],AL
+			CMP ECX,DWORD PTR DS:[ESI+0xC]
+			JNB L015
+			MOV EAX,DWORD PTR DS:[ESI+0x10]
+			BSWAP EAX
+			MOV DWORD PTR DS:[ECX],EAX
+L015:
+			MOV ECX,DWORD PTR DS:[ESI+0x8]
+			MOV EAX,DWORD PTR DS:[ESI]
+			SHR ECX,0x5
+			LEA EAX,DWORD PTR DS:[EAX+ECX*4]
+			MOV DWORD PTR DS:[ESI+0x14],EAX
+			CMP EAX,DWORD PTR DS:[ESI+0xC]
+			JNB L025
+			MOV EAX,DWORD PTR DS:[EAX]
+			BSWAP EAX
+			MOV DWORD PTR DS:[ESI+0x10],EAX
+L025:
+			POP ESI
+			POP EBP
+			RETN 0x4
+
+	}
+}
+
+WORD _declspec(naked) CalcCrc_ASM(IN DWORD dwBytesCount,IN PBYTE pBuf)
+{
+	_asm
+	{
+			PUSH EBP
+			MOV EBP,ESP
+			PUSH EBX
+			PUSH ESI
+			MOV ESI,DWORD PTR SS:[EBP+0x8]
+			XOR BL,BL
+			XOR AH,AH
+			XOR AL,AL
+			XOR BH,BH
+			XOR ECX,ECX
+			PUSH EDI
+			MOV EDI,DWORD PTR SS:[EBP+0xC]
+			CMP ESI,0x2
+			JB L023
+			LEA EDX,DWORD PTR DS:[ESI-0x1]
+			MOV EDI,EDI
+L016:
+			ADD AL,BYTE PTR DS:[EDI+ECX]
+			ADD BL,AL
+			ADD AL,BYTE PTR DS:[EDI+ECX+0x1]
+			ADD ECX,0x2
+			ADD AH,AL
+			CMP ECX,EDX
+			JB L016
+L023:
+			CMP ECX,ESI
+			JNB L027
+			ADD AL,BYTE PTR DS:[ECX+EDI]
+			MOV BH,AL
+L027:
+			OR DL,0xFF
+			OR CL,0xFF
+			SUB DL,AH
+			SUB DL,BL
+			SUB DL,BH
+			SUB DL,AL
+			SUB CL,DL
+			SUB CL,AL
+			MOVZX EAX,CL
+			POP EDI
+			MOVZX ECX,DL
+			SHL ECX,0x8
+			POP ESI
+			OR EAX,ECX
+			POP EBX
+			POP EBP
+			RETN
+	}
+
+}
+
+
+DWORD CJieMi::PopValue(IN DWORD dwBits)
+{
+	DWORD dwRet=0;
+	_asm
+	{
+		push dwBits
+		mov ecx,this
+		call PopValue_ASM
+		mov dwRet,eax
+	}
+
+	return dwRet;
+}
+
+void CJieMi::InitRecvPak(IN PBYTE pRecvBuf,IN DWORD dwBits)
+{
+	_asm
+	{
+		pushad
+		push dwBits
+		push pRecvBuf
+		mov ecx,this
+		call InitRecvPak_ASM
+		popad
+	}
+}
+
+void CJieMi::SetPopOffset(IN DWORD dwOffset)
+{
+	_asm
+	{
+		pushad
+		push dwOffset
+		mov ecx,this
+		call SetPopOffset_ASM
+		popad
+	}
+}
+
+
+
+////////////加密类
+void CJiaMi::InitSendPak(IN PBYTE pSendBuf,IN DWORD dwTotalBytes)
+{
+	_asm
+	{
+		pushad
+			push dwTotalBytes
+			push pSendBuf
+			mov ecx,this
+			call InitSendPak_ASM
+			popad
+	}
+}
+
+
+void CJiaMi::PushValue(IN DWORD dwValue,IN DWORD dwBits)
+{
+	_asm
+	{
+		pushad
+		push dwBits
+		push dwValue
+		mov ecx,this
+		call PushValue_ASM
+		popad
+	}
+}
+
+void CJiaMi::SetSendOffset(IN DWORD dwOffset)
+{
+	_asm
+	{
+		pushad
+		push dwOffset
+		mov ecx,this
+		call SetSendOffset_ASM
+		popad
+	}
+}
+
+void CJiaMi::EndBuf()
+{
+	_asm
+	{
+		pushad
+		mov ecx,this
+		call EndBuf_ASM
+		popad
+	}
+}
+
+WORD CJiaMi::CalcCrc(IN DWORD dwSize,IN PBYTE pBuff)
+{
+	WORD wRet=0;
+	_asm
+	{
+		pushad
+		push pBuff
+		push dwSize
+		call CalcCrc_ASM
+		mov wRet,ax
+		add esp,8
+		popad
+	}
+	return htons(wRet);
+}

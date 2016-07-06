@@ -1,0 +1,16 @@
+﻿  InjectDLL_Entry.cpp
+  FileContainer.cpp
+  export.cpp
+  CMyFunc.cpp
+  CLock.cpp
+  CJieMi.cpp
+  CHookMgr.cpp
+d:\project\codes\hookmanager\hookmanager\src\dllhajack\test\chookmgr.cpp(65): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(240): note: see declaration of 'freopen'
+d:\project\codes\hookmanager\hookmanager\src\dllhajack\test\chookmgr.cpp(101): warning C4018: '<': signed/unsigned mismatch
+  CComHook.cpp
+  Generating Code...
+CComHook.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+export.obj : warning LNK4104: export of symbol 'DllInitialize' should be PRIVATE
+     Creating library D:\Project\codes\hookmanager\HookManager\src\DLLHajack\..\..\bin\Debug\HookMgr\HookManager.lib and object D:\Project\codes\hookmanager\HookManager\src\DLLHajack\..\..\bin\Debug\HookMgr\HookManager.exp
+  Test.vcxproj -> D:\Project\codes\hookmanager\HookManager\src\DLLHajack\..\..\bin\Debug\HookMgr\HookManager.dll

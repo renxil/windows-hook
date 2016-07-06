@@ -1,0 +1,15 @@
+﻿  InjectDLL_Entry.cpp
+  FileContainer.cpp
+  export.cpp
+  CMyFunc_JPFC.cpp
+  CJieMi_JPFC.cpp
+  CHookMgr.cpp
+d:\jpfc_demo\src\dllhajack\test\chookmgr.cpp(65): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(240): note: see declaration of 'freopen'
+d:\jpfc_demo\src\dllhajack\test\chookmgr.cpp(101): warning C4018: '<': signed/unsigned mismatch
+  CComHook.cpp
+  Generating Code...
+CComHook.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+export.obj : warning LNK4104: export of symbol 'DllInitialize' should be PRIVATE
+     Creating library D:\jpfc_demo\src\DLLHajack\..\..\bin\Debug\DLLHajack\Test.lib and object D:\jpfc_demo\src\DLLHajack\..\..\bin\Debug\DLLHajack\Test.exp
+  Test.vcxproj -> D:\jpfc_demo\src\DLLHajack\..\..\bin\Debug\DLLHajack\Test.dll

@@ -1,0 +1,7 @@
+﻿  stdafx.cpp
+  FileReader.cpp
+d:\project\codes\hookmanager\filereader\filereader\filereader.cpp(255): warning C4477: 'wprintf' : format string '%s' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'LPSTR'
+  d:\project\codes\hookmanager\filereader\filereader\filereader.cpp(255): note: consider using '%hs' in the format string
+  d:\project\codes\hookmanager\filereader\filereader\filereader.cpp(255): note: consider using '%Ts' in the format string
+  d:\project\codes\hookmanager\filereader\filereader\filereader.cpp(255): note: consider defining _CRT_STDIO_ISO_WIDE_SPECIFIERS if C99 standard semantics is required
+  FileReader.vcxproj -> D:\Project\codes\hookmanager\FileReader\Debug\FileReader.exe
