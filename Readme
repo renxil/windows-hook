@@ -1,3 +1,9 @@
-FileReader 文件读取demo
+##HookManager
+1. Read/Write win function hook implementation 
+2. Send/Recv win net function hook implementation 
+3. Hook is based on detours lib
 
-HookManager is Hook方法库 based on detours lib
+
+##FileReader 
+1. 文件读取demo for test with HookManager
+
